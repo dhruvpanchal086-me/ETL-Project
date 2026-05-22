@@ -1,0 +1,49 @@
+{
+	"name": "Master_Pipeline_Finwealth",
+	"properties": {
+		"activities": [
+			{
+				"name": "Ingest",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_Ingest_Finwealth_Allsources",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Transform",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Ingest",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_Transform_SPG_to_DWH",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-05-22T11:22:39Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

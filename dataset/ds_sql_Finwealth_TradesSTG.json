@@ -1,0 +1,63 @@
+{
+	"name": "ds_sql_Finwealth_TradesSTG",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "ds_sql"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "TradeID",
+				"type": "varchar"
+			},
+			{
+				"name": "AccountID",
+				"type": "varchar"
+			},
+			{
+				"name": "SecurityID",
+				"type": "varchar"
+			},
+			{
+				"name": "TradeDate",
+				"type": "varchar"
+			},
+			{
+				"name": "SettleDate",
+				"type": "varchar"
+			},
+			{
+				"name": "Side",
+				"type": "varchar"
+			},
+			{
+				"name": "Price",
+				"type": "varchar"
+			},
+			{
+				"name": "Quantity",
+				"type": "varchar"
+			},
+			{
+				"name": "Amount",
+				"type": "varchar"
+			},
+			{
+				"name": "stg_load_timestamp",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "stg_trades"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

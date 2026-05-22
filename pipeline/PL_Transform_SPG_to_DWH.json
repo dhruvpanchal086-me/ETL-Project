@@ -1,0 +1,434 @@
+{
+	"name": "PL_Transform_SPG_to_DWH",
+	"properties": {
+		"activities": [
+			{
+				"name": "sp_load_dim_advisor",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dwh].[usp_load_dim_advisor]"
+				},
+				"linkedServiceName": {
+					"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_load_dim_benchmark",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_load_dim_advisor",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dwh].[usp_load_dim_benchmark]"
+				},
+				"linkedServiceName": {
+					"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_load_dim_account",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_load_dim_client",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dwh].[usp_load_dim_account]"
+				},
+				"linkedServiceName": {
+					"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_load_dim_client",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_load_dim_security",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dwh].[usp_load_dim_client]"
+				},
+				"linkedServiceName": {
+					"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_load_dim_security",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_load_dim_benchmark",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dwh].[usp_load_dim_security]"
+				},
+				"linkedServiceName": {
+					"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_load_fact_holding",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_load_dim_account",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dwh].[usp_load_fact_holding]"
+				},
+				"linkedServiceName": {
+					"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_load_fact_performance",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_load_dim_account",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dwh].[usp_load_fact_performance]"
+				},
+				"linkedServiceName": {
+					"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_load_fact_security_price",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_load_dim_account",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dwh].[usp_load_fact_security_price]"
+				},
+				"linkedServiceName": {
+					"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_load_fact_fee",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_load_dim_account",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dwh].[usp_load_fact_fee]"
+				},
+				"linkedServiceName": {
+					"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_load_fact_cashflow",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_load_dim_account",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dwh].[usp_load_fact_cashflow]"
+				},
+				"linkedServiceName": {
+					"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_load_fact_trade",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_load_dim_account",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dwh].[usp_load_fact_trade]"
+				},
+				"linkedServiceName": {
+					"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "on_success_log",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_load_fact_holding",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "sp_load_fact_trade",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "sp_load_fact_cashflow",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "sp_load_fact_fee",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "sp_load_fact_security_price",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "sp_load_fact_performance",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[usp_log_transform_summary]",
+					"storedProcedureParameters": {
+						"status": {
+							"value": "Success",
+							"type": "String"
+						},
+						"error_message": {
+							"value": "error",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "on_failure_log",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_load_fact_holding",
+						"dependencyConditions": [
+							"Failed"
+						]
+					},
+					{
+						"activity": "sp_load_fact_trade",
+						"dependencyConditions": [
+							"Failed"
+						]
+					},
+					{
+						"activity": "sp_load_fact_cashflow",
+						"dependencyConditions": [
+							"Failed"
+						]
+					},
+					{
+						"activity": "sp_load_fact_fee",
+						"dependencyConditions": [
+							"Failed"
+						]
+					},
+					{
+						"activity": "sp_load_fact_security_price",
+						"dependencyConditions": [
+							"Failed"
+						]
+					},
+					{
+						"activity": "sp_load_fact_performance",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[usp_log_transform_summary]",
+					"storedProcedureParameters": {
+						"status": {
+							"value": "Failure",
+							"type": "String"
+						},
+						"error_message": {
+							"value": "error",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-05-22T11:22:38Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,24 @@
+{
+	"name": "LSAzureSqlDatabaseFinwealthredo",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "sqlsrvrfinwealthredo.database.windows.net",
+			"database": "sqldbfinwealthredo",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "sqlsrvrfinwealthredo",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "LSAzureKeyVaultFinwealthredo",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "secretsqlpsw"
+			}
+		}
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"name": "adf-finwealth-redo",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "0f2f81c9-ddca-4da5-acd3-abd853f3bee6",
+		"tenantId": "37ace775-8ec5-4fe0-ba2a-f68e63496173"
+	}
+}

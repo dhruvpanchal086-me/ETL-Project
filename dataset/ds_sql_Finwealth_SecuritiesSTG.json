@@ -1,0 +1,55 @@
+{
+	"name": "ds_sql_Finwealth_SecuritiesSTG",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LSAzureSqlDatabaseFinwealthredo",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "ds_sql"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SecurityID",
+				"type": "varchar"
+			},
+			{
+				"name": "Ticker",
+				"type": "varchar"
+			},
+			{
+				"name": "SecurityName",
+				"type": "varchar"
+			},
+			{
+				"name": "AssetClass",
+				"type": "varchar"
+			},
+			{
+				"name": "Sector",
+				"type": "varchar"
+			},
+			{
+				"name": "Currency",
+				"type": "varchar"
+			},
+			{
+				"name": "Region",
+				"type": "varchar"
+			},
+			{
+				"name": "stg_load_timestamp",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "stg_securities"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
